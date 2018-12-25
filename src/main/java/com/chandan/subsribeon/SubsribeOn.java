@@ -13,9 +13,9 @@ import static com.chandan.common.Util.*;
  * Starting sleep on First Single -1
  * Starting sleep on main
  * Starting sleep on Second Single -2
- * Finished sleep on main
  * Finished sleep on First Single -1
  * Finished sleep on Second Single -2
+ * Finished sleep on main
  * </pre>
  */
 public class SubsribeOn {
@@ -52,7 +52,8 @@ public class SubsribeOn {
         firstOperatorIsSubscribeOn(10000).subscribe();
         lastOperatorIsSubsribeOn(10000).subscribe();
         printStartSleep();
-        Thread.sleep(9000);
+        Thread.sleep(11000);
         printFinishSleep();
+        System.exit(0);
     }
 }
