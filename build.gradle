@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "io.projectreactor:reactor-bom:Bismuth-RELEASE"
+    }
+}
+
+group 'com.chandan'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    maven { url 'http://repo.spring.io/milestone' }
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'io.projectreactor', name:'reactor-core'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
