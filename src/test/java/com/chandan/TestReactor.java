@@ -13,7 +13,6 @@ public class TestReactor {
 
     @Test
     public void testVerifyFailure() {
-        StepVerifier.create(Mono.error(new Throwable("Some Error"))).expectNextMatches(e -> Assertions.)
         StepVerifier.create(Mono.error(new Throwable("Some Error"))).expectError().verifyThenAssertThat().;
     }
 }
