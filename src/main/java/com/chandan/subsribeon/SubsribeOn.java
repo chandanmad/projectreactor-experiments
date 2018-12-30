@@ -23,6 +23,7 @@ public class SubsribeOn {
 
     static Mono<String> firstOperatorIsSubscribeOn(final long sleep) {
         return Mono.just("Hello")
+                .log()
                 .subscribeOn(Schedulers.newSingle("First Single ", false))
                 .doOnNext((s) -> {
                     printStartSleep();
@@ -37,6 +38,7 @@ public class SubsribeOn {
 
     static Mono<String> lastOperatorIsSubsribeOn(final long sleep) {
         return Mono.just("Hello")
+                .log()
                 .doOnNext((s) -> {
                     printStartSleep();
                     try {
