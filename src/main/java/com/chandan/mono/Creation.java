@@ -1,7 +1,12 @@
 package com.chandan.mono;
 
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.MonoSink;
 import reactor.util.Loggers;
+
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Creation {
 
@@ -35,5 +40,18 @@ public class Creation {
                         v -> Loggers.getLogger("STDOUT").debug("Received {}", v),
                         t -> Loggers.getLogger("STDOUT").error("Error received", t),
                         () -> Loggers.getLogger("STDOUT").debug("Completed"));
+
+
+        // Mono.create
+        Stream<String> stream = Arrays.asList("Hello").stream().onClose(() -> Loggers.getLogger("STDOUT").debug("Stream closed"));
+        Consumer<MonoSink<String>> sinkConsumer = sink -> {
+            sink.onDispose(() -> stream.close());
+            sink.onCancel(() -> stream.close());
+            sink.onRequest(l -> Loggers.getLogger("STDOUT").debug("Requested {}", l));
+            sink.success(stream.findFirst().orElse("Empty"));
+        };
+        Mono.create(sinkConsumer)
+                .log()
+                .subscribe(v -> Loggers.getLogger("STDOUT").debug("Received from create {}", v));
     }
 }
